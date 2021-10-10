@@ -1,0 +1,31 @@
+.outgoing,
+.incoming {
+  display: flex;
+  align-items: center;
+
+  div {
+    padding: 1vh 1vw;
+    border-radius: 3rem;
+  }
+}
+
+.outgoing {
+  flex-direction: row-reverse;
+
+  div {
+    color: white;
+    background: #1e85da;
+  }
+}
+
+.incoming div {
+  background: #e5e5ea;
+  color: black;
+}
+
+img {
+  width: 2vw;
+  height: 4vh;
+  border-radius: 50%;
+  margin: 0.4vh 1vw;
+}
