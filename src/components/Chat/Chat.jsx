@@ -1,7 +1,7 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Message from "../Message/Message.jsx";
 import React, { useRef, useState } from "react";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
 export default function Chat({ auth, firestore }) {

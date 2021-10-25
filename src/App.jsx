@@ -3,9 +3,9 @@ import "./global.scss";
 import Chat from "./components/Chat/Chat.jsx";
 import Join from "./components/Join/Join.jsx";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
