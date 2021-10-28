@@ -47,7 +47,7 @@ export default function Chat({ auth, firestore }) {
         <span ref={last}></span>
       </div>
 
-      <form onSubmit={sendMessage}>
+      <form className="submit" onSubmit={sendMessage}>
         <input
           type="text"
           value={formValue}

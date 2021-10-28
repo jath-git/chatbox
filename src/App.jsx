@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 import "./global.scss";
 import Chat from "./components/Chat/Chat.jsx";
 import Join from "./components/Join/Join.jsx";
