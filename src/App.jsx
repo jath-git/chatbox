@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./global.scss";
 import Chat from "./components/Chat/Chat.jsx";
 import Join from "./components/Join/Join.jsx";
@@ -22,10 +23,11 @@ const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
+  const [room, setRoom] = useState("");
 
   return (
     <div className="App">
-      {user ? <Chat auth={auth} firestore={firestore} /> : <Join auth={auth} />}
+      {user ? <Chat auth={auth} firestore={firestore} room={room} /> : <Join auth={auth} room={room} setRoom={setRoom} />}
     </div>
   );
 }

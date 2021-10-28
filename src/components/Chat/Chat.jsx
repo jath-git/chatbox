@@ -4,26 +4,48 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
-export default function Chat({ auth, firestore }) {
+export default function Chat({ auth, firestore, room }) {
+  if (room === "") {
+    room = "global";
+  }
+
+  const userCollectionName = `${room}-participants`;
+
   const last = useRef();
   const [formValue, setFormValue] = useState("");
-
-  const collection = firestore.collection("messages");
-  const [messages] = useCollectionData(collection.orderBy("createdAt"), {
-    idField: "id",
+  const collectionMessages = firestore.collection(room);
+  const collectionParticipants = firestore.collection(userCollectionName);
+  const [messages] = useCollectionData(collectionMessages.orderBy("createdAt"), {
+    idField: "uniqueId",
+  });
+  const [participants] = useCollectionData(collectionParticipants.orderBy("displayName"), {
+    idField: "uniqueId",
   });
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
-
-    await collection.add({
+    const { photoURL, displayName, email } = auth.currentUser;
+    await collectionMessages.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
       photoURL,
+      email
     });
+
+    let participantFound = false;
+    for (let i = 0; !participantFound && i < participants.length; ++i) {
+      if (participants[i].email === email) {
+        participantFound = true;
+      }
+    }
+
+    if (!participantFound) {
+      await collectionParticipants.add({
+        email,
+        displayName
+      });
+    }
 
     setFormValue("");
     last.current.scrollIntoView({ behavior: "smooth" });
@@ -32,7 +54,7 @@ export default function Chat({ auth, firestore }) {
   return (
     <div>
       <div className="text">
-        Global Chat Room
+        {room} chat room
         <img
           src="../assets/close.png"
           onClick={() => {

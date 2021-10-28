@@ -13,23 +13,4 @@
     padding: 2%;
     background-color: whitesmoke;
   }
-
-  form {
-    text-align: center;
-    margin: auto;
-    background-color: aqua;
-    .under {
-      background-color: $color2;
-      border: solid 1px black;
-      font-size: 1rem;
-      width: 20%;
-      border-radius: 1rem;
-      height: 100%;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $color3;
-      }
-    }
-  }
 }
