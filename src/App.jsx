@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./global.scss";
 import Chat from "./components/Chat/Chat.jsx";
 import Join from "./components/Join/Join.jsx";
+import Participants from "./components/Participants/Participants.jsx";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -28,6 +29,7 @@ function App() {
   return (
     <div className="App">
       {user ? <Chat auth={auth} firestore={firestore} room={room} /> : <Join auth={auth} room={room} setRoom={setRoom} />}
+      {user ? <Participants firestore={firestore} room={room} auth={auth} /> : null}
     </div>
   );
 }

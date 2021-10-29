@@ -2,15 +2,15 @@ import React from "react";
 import "./Message.scss";
 
 export default function Message(props) {
-  const { text, uid, photoURL } = props.message;
+  const { text, email, photoURL } = props.message;
   const auth = props.auth;
-
+  
   return (
-    <>
-      <div className={uid === auth.currentUser.uid ? "outgoing" : "incoming"}>
+    <div className="message">
+      <div className={email === auth.currentUser.email ? "outgoing" : "incoming"}>
         <img src={photoURL} />
         <div>{text}</div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,18 @@
+@import "../../global.scss";
+
+.participants {
+    background-color: $color2;
+    height: 74vh;
+    width: 60%;
+    transform: translate(166.67%, -87%);
+
+    .participants-list {
+        width: 80%;
+        margin: auto;
+        height: 65vh;
+
+        overflow: scroll;
+        flex-direction: column;
+        transform: translateY(7.5%);
+    }
+}

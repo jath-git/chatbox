@@ -1,51 +1,53 @@
 @import "../../global.scss";
 
-.text {
-  img {
-    width: 2.5vw;
-    height: 2.5vw;
-    cursor: pointer;
-  }
-}
-
-.message-list {
-  width: 80%;
-  margin: auto;
-  height: 55vh;
-  overflow: scroll;
-  flex-direction: column;
-}
-
-.submit {
-  border-radius: 1rem;
-  height: 6vh;
-  bottom: 1px;
-  position: absolute;
-  text-align: left;
-  width: 100%;
-
-  input {
-    width: 75%;
-    height: 100%;
-    background-color: $color2;
-    border: none;
-    padding: 0 1vw;
-    font-size: 1rem;
-    border-left: solid 1px $color1;
+.chat {
+  .text {
+    img {
+      width: 6%;
+      height: 6%;
+      cursor: pointer;
+    }
   }
 
-  button {
-    background-color: $color2;
-    border: none;
-    font-size: 1rem;
-    float: right;
-    width: 19%;
-    height: 100%;
-    cursor: pointer;
-    border-right: solid 1px $color1;
+  .message-list {
+    width: 80%;
+    margin: auto;
+    height: 55vh;
+    overflow: scroll;
+    flex-direction: column;
+  }
 
-    &:hover {
-      background-color: $color3;
+  .submit {
+    border-radius: 1rem;
+    height: 6vh;
+    bottom: 1px;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+
+    input {
+      width: calc(75% - 2px);
+      height: 100%;
+      background-color: $color2;
+      border: none;
+      padding: 0 2.5%;
+      font-size: 1rem;
+      border-left: solid 1px $color1;
+    }
+
+    button {
+      background-color: $color2;
+      border: none;
+      font-size: 1rem;
+      float: right;
+      width: 20%;
+      height: 100%;
+      cursor: pointer;
+      border-right: solid 1px $color1;
+
+      &:hover {
+        background-color: $color3;
+      }
     }
   }
 }

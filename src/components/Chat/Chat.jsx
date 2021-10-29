@@ -9,7 +9,7 @@ export default function Chat({ auth, firestore, room }) {
     room = "global";
   }
 
-  const userCollectionName = `${room}-participants`;
+  const userCollectionName = `${room}-participantss`;
 
   const last = useRef();
   const [formValue, setFormValue] = useState("");
@@ -18,7 +18,7 @@ export default function Chat({ auth, firestore, room }) {
   const [messages] = useCollectionData(collectionMessages.orderBy("createdAt"), {
     idField: "uniqueId",
   });
-  const [participants] = useCollectionData(collectionParticipants.orderBy("displayName"), {
+  const [participants] = useCollectionData(collectionParticipants.orderBy("email"), {
     idField: "uniqueId",
   });
 
@@ -28,13 +28,7 @@ export default function Chat({ auth, firestore, room }) {
       return;
     }
 
-    const { photoURL, displayName, email } = auth.currentUser;
-    await collectionMessages.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      photoURL,
-      email
-    });
+    const { photoURL, email } = auth.currentUser;
 
     let participantFound = false;
     for (let i = 0; !participantFound && i < participants.length; ++i) {
@@ -45,17 +39,24 @@ export default function Chat({ auth, firestore, room }) {
 
     if (!participantFound) {
       await collectionParticipants.add({
-        email,
-        displayName
+        photoURL,
+        email
       });
     }
+
+    await collectionMessages.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      photoURL,
+      email
+    });
 
     setFormValue("");
     last.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div>
+    <div className="chat">
       <div className="text">
         {room} chat room
         <img
