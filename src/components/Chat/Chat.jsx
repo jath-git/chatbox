@@ -12,7 +12,7 @@ export default function Chat({ auth, firestore, room }) {
   const userCollectionName = `${room}-participantss`;
 
   const last = useRef();
-  const [formValue, setFormValue] = useState("");
+  const [messageValue, setMessageValue] = useState("");
   const collectionMessages = firestore.collection(room);
   const collectionParticipants = firestore.collection(userCollectionName);
   const [messages] = useCollectionData(collectionMessages.orderBy("createdAt"), {
@@ -24,7 +24,7 @@ export default function Chat({ auth, firestore, room }) {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (formValue == "") {
+    if (messageValue == "") {
       return;
     }
 
@@ -45,13 +45,13 @@ export default function Chat({ auth, firestore, room }) {
     }
 
     await collectionMessages.add({
-      text: formValue,
+      text: messageValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       photoURL,
       email
     });
 
-    setFormValue("");
+    setMessageValue("");
     last.current.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -76,12 +76,12 @@ export default function Chat({ auth, firestore, room }) {
       <form className="submit" onSubmit={sendMessage}>
         <input
           type="text"
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
+          value={messageValue}
+          onChange={(e) => setMessageValue(e.target.value)}
           placeholder="Enter message here"
         />
 
-        <button type="submit" disabled={!formValue}>
+        <button type="submit" disabled={!messageValue}>
           Send
         </button>
       </form>

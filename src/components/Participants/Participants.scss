@@ -4,7 +4,10 @@
     background-color: $color2;
     height: 74vh;
     width: 60%;
-    transform: translate(166.67%, -87%);
+    position: absolute;
+    top: 0;
+    left: 100%;
+    // transform: translate(166.67%, -87%);
 
     .participants-list {
         width: 80%;
