@@ -2,7 +2,7 @@ import React from "react";
 import "./Participants.scss"; import { useCollectionData } from "react-firebase-hooks/firestore";
 import Participant from "../Participant/Participant.jsx";
 
-export default function Participants({ firestore, room, auth }) {
+export default function Participants({ firestore, room, auth, showParticipants }) {
     if (room === "") {
         room = "global";
     }
@@ -14,12 +14,13 @@ export default function Participants({ firestore, room, auth }) {
     });
 
     return (
-        <div className="participants">
+        <div className={showParticipants ? "participants" : "none"}>
+            <div className="heading">Participants</div>
             <div className="participants-list">
                 <Participant participant={{ email: currentUser.email, photoURL: currentUser.photoURL }} currentEmail={currentUser.email} special={true}/>
                 {participants &&
                     participants.map((participant) => <Participant participant={participant} currentEmail={currentUser.email} special={false}/>)}
             </div>
-        </div>
+        </div >
     );
 }

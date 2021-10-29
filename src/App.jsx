@@ -3,6 +3,7 @@ import "./global.scss";
 import Chat from "./components/Chat/Chat.jsx";
 import Join from "./components/Join/Join.jsx";
 import Participants from "./components/Participants/Participants.jsx";
+import Password from "./components/Password/Password.jsx";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -25,11 +26,22 @@ const firestore = firebase.firestore();
 function App() {
   const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
+  const [showParticipants, setShowParticipants] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const showChatRoom = () => {
+    return (
+      <div>
+        <Password showPassword={showPassword} />
+        <Chat auth={auth} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
+        <Participants firestore={firestore} room={room} auth={auth} showParticipants={showParticipants} />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
-      {user ? <Chat auth={auth} firestore={firestore} room={room} /> : <Join auth={auth} room={room} setRoom={setRoom} />}
-      {user ? <Participants firestore={firestore} room={room} auth={auth} /> : null}
+      {user ? showChatRoom() : <Join auth={auth} room={room} setRoom={setRoom} />}
     </div>
   );
 }

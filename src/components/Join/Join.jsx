@@ -4,6 +4,7 @@ import "./Join.scss";
 
 export default function Join({ auth, room, setRoom }) {
   const validateUserRoom = () => {
+    setRoom(room.toLowerCase());
     let hyphenFound = false;
     for (let i = 0; !hyphenFound && i < room.length; ++i) {
       if (room[i] === "_" || room[i] === "-") {
@@ -13,8 +14,6 @@ export default function Join({ auth, room, setRoom }) {
 
     if (!hyphenFound) {
       auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    } else {
-
     }
   }
 

@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
-export default function Chat({ auth, firestore, room }) {
+export default function Chat({ auth, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword }) {
   if (room === "") {
     room = "global";
   }
@@ -13,9 +13,10 @@ export default function Chat({ auth, firestore, room }) {
 
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
+  const [modify, setModify] = useState(false);
   const collectionMessages = firestore.collection(room);
   const collectionParticipants = firestore.collection(userCollectionName);
-  const [messages] = useCollectionData(collectionMessages.orderBy("createdAt"), {
+  const [messages] = useCollectionData(collectionMessages.orderBy("timeStamp"), {
     idField: "uniqueId",
   });
   const [participants] = useCollectionData(collectionParticipants.orderBy("email"), {
@@ -23,6 +24,8 @@ export default function Chat({ auth, firestore, room }) {
   });
 
   const sendMessage = async (e) => {
+    setModify(false);
+
     e.preventDefault();
     if (messageValue == "") {
       return;
@@ -46,7 +49,7 @@ export default function Chat({ auth, firestore, room }) {
 
     await collectionMessages.add({
       text: messageValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       photoURL,
       email
     });
@@ -58,6 +61,7 @@ export default function Chat({ auth, firestore, room }) {
   return (
     <div className="chat">
       <div className="text">
+        {/* <img className="setup" src="../../assets/arrow.png" onClick={() => setShowPassword(!showPassword)} /> */}
         {room} chat room
         <img
           src="../assets/close.png"
@@ -65,10 +69,12 @@ export default function Chat({ auth, firestore, room }) {
             auth.signOut();
           }}
         />
+        <img className="modify" src="../../assets/settings.png" onClick={() => setModify(!modify)} />
+        <img className="modify" src="../../assets/arrow.png" onClick={() => setShowParticipants(!showParticipants)} />
       </div>
       <div className="message-list">
         {messages &&
-          messages.map((msg) => <Message message={msg} auth={auth} />)}
+          messages.map((msg) => <Message message={msg} auth={auth} modify={modify} collectionMessages={collectionMessages} />)}
 
         <span ref={last}></span>
       </div>

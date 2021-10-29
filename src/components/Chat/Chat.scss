@@ -2,10 +2,17 @@
 
 .chat {
   .text {
+    height: 6vh;
+
     img {
-      width: 6%;
-      height: 6%;
+      width: 2.5vw;
+      height: 2.5vw;
       cursor: pointer;
+      padding: 0 0.5vw;
+    }
+
+    .setup {
+      transform: rotate(180deg)
     }
   }
 
