@@ -7,7 +7,7 @@ export default function Participants({ firestore, room, auth }) {
         room = "global";
     }
     const currentUser = auth.currentUser;
-    const userCollectionName = `${room}-participantss`;
+    const userCollectionName = `${room}-participants`;
     const collectionParticipants = firestore.collection(userCollectionName);
     const [participants] = useCollectionData(collectionParticipants.orderBy("email"), {
         idField: "uniqueId",

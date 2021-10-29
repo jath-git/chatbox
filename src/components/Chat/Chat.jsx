@@ -9,7 +9,7 @@ export default function Chat({ auth, firestore, room }) {
     room = "global";
   }
 
-  const userCollectionName = `${room}-participantss`;
+  const userCollectionName = `${room}-participants`;
 
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
