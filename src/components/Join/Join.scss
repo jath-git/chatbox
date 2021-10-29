@@ -5,7 +5,15 @@
   margin: auto;
   margin-top: 25vh;
 
+  input {
+    width: 75%;
+    padding: 2%;
+  }
+
   img {
+    display: block;
+    margin: auto;
+    margin-top: 7vh;
     width: 4vw;
     height: 4vw;
     cursor: pointer;

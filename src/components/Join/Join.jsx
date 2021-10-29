@@ -28,17 +28,18 @@ export default function Join({ auth, room, setRoom }) {
           onChange={(e) => setRoom(e.target.value)}
           placeholder="Enter Chat Room"
           onKeyDown={e => {
-            if (e.keyCode === 13)
+            const enterKey = 13;
+            if (e.keyCode === enterKey)
               validateUserRoom();
           }}
         />
-        <img
-          src="../assets/google.png"
-          onClick={() => {
-            validateUserRoom();
-          }}
-        />
-      </div>
+          <img
+            src="../assets/google.png"
+            onClick={() => {
+              validateUserRoom();
+            }}
+          />
+        </div>
     </div>
   );
 }

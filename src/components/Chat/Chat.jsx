@@ -24,6 +24,9 @@ export default function Chat({ auth, firestore, room }) {
 
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (formValue == "") {
+      return;
+    }
 
     const { photoURL, displayName, email } = auth.currentUser;
     await collectionMessages.add({
