@@ -29,12 +29,14 @@ function App() {
   const [showParticipants, setShowParticipants] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [bot, setBot] = useState(null);
+  const [clientMessage, setClientMessage] = useState("TO ACCESS NON-SECURED GLOBAL CHAT ROOM, ENTER 'global'");
+  const [showclientMessage, setShowClientMessage] = useState(true);
 
   const showChatRoom = () => {
     return (
       <div>
-        <Password firestore={firestore} room={room} showPassword={showPassword} room={room} firestore={firestore} />
-        <Chat user={user ? auth : BotObj} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
+        <Password firestore={firestore} room={room} showPassword={showPassword} firestore={firestore} setShowPassword={setShowPassword} />
+        <Chat user={user ? auth : BotObj} setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
         <Participants firestore={firestore} room={room} user={user ? auth : BotObj} showParticipants={showParticipants} />
       </div>
     );
@@ -53,7 +55,8 @@ function App() {
 
   return (
     <div className="App">
-      {user || bot ? showChatRoom() : <Join firestore={firestore} auth={auth} room={room} setRoom={setRoom} setBot={setBot} />}
+      <div className={showclientMessage ? "client-message" : "none"}><img src="../../assets/notification.png" />{clientMessage}<img className="close-message" src="../../assets/close.png" onClick={() => setShowClientMessage(false)} /></div>
+      {user || bot ? showChatRoom() : <Join setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} auth={auth} room={room} setRoom={setRoom} setBot={setBot} />}
     </div>
   );
 }

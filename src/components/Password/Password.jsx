@@ -2,10 +2,12 @@ import React from "react";
 import "./Password.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default function Password({ firestore, showPassword, room }) {
-    if (room === "") {
+export default function Password({ firestore, showPassword, setShowPassword, room }) {
+    if (room === "" || room === "global") {
         room = "global";
+        // setShowPassword(false);
     }
+
     const collectionInformation = firestore.collection(`${room}-information`);
     const [information] = useCollectionData(collectionInformation, {
         idField: "uniqueId",

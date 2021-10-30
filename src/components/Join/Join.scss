@@ -1,28 +1,31 @@
 @import "../../global.scss";
 
-.logos {
-  width: 80%;
-  margin: auto;
-  margin-top: 18vh;
+.join {
+  padding-top: 20vh;
 
-  input {
-    width: 75%;
-    padding: 2%;
-  }
-
-  .img-container {
-    display: block;
+  .logos {
     width: 80%;
     margin: auto;
-    margin-top: 7vh;
-    
-    img {
-      background-color: whitesmoke;
-      border-radius: 50%;
-      padding: 5%;
-      margin: 0 5%;
-      height: 4vw;
-      cursor: pointer;
+
+    input {
+      width: 75%;
+      padding: 2%;
+    }
+
+    .img-container {
+      display: block;
+      width: 80%;
+      margin: auto;
+      margin-top: 7vh;
+
+      img {
+        background-color: whitesmoke;
+        border-radius: 50%;
+        padding: 5%;
+        margin: 0 5%;
+        height: 4vw;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
-export default function Chat({ user, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword }) {
+export default function Chat({ user, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword, setClientMessage, setShowClientMessage }) {
   if (room === "") {
     room = "global";
   }
-console.log(user.currentUser.photoURL)
+
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
   const [modify, setModify] = useState(false);
@@ -62,7 +62,14 @@ console.log(user.currentUser.photoURL)
   return (
     <div className="chat">
       <div className="text">
-        <img className={room === "global" ? "none" : "setup"} src="../../assets/arrow.png" onClick={() => setShowPassword(!showPassword)} />
+        <img className="setup" src="../../assets/arrow.png" onClick={() => {
+          if (room === "global") {
+            setShowClientMessage(true);
+            setClientMessage("UNABLE TO SET PASSWORD FOR GLOBAL CHAT ROOM");
+          } else {
+            setShowPassword(!showPassword)
+          }
+        }} />
         {room} chat room
         <img
           src="../assets/close.png"
@@ -71,7 +78,7 @@ console.log(user.currentUser.photoURL)
           }}
         />
         <img className="modify" src="../../assets/settings.png" onClick={() => setModify(!modify)} />
-        <img className="modify" src="../../assets/arrow.png" onClick={() => setShowParticipants(!showParticipants)} />
+        <img src="../../assets/arrow.png" onClick={() => setShowParticipants(!showParticipants)} />
       </div>
       <div className="message-list">
         {messages &&
