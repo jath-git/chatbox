@@ -73,7 +73,7 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
         <img className="setup" src="../../assets/arrow.png" onClick={() => {
           if (room === "global") {
             setShowClientMessage(true);
-            setClientMessage("UNABLE TO SET PASSWORD FOR GLOBAL CHAT ROOM");
+            setClientMessage("UNABLE TO SET PASSWORD FOR GLOBAL CHAT ROOM. TRY ANOTHER ROOM");
           } else {
             setShowPassword(!showPassword)
           }
