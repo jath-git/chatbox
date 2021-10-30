@@ -12,6 +12,7 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
   const [modify, setModify] = useState(false);
+  const { photoURL, email, uid } = user.currentUser;
 
   const collectionMessages = firestore.collection(room);
   const [messages] = useCollectionData(collectionMessages.orderBy("timeStamp"), {
@@ -22,6 +23,17 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
     idField: "uniqueId",
   });
 
+  const findParticipant = () => {
+    // TODO: currently O(n) efficiency but since participants are ordered by uid, change to O(log n)
+    //   using midpoint, low, high reduction pattern
+    for (let i = 0; i < participants.length; ++i) {
+      if (participants[i].uid === uid) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   const sendMessage = async (e) => {
     setModify(false);
 
@@ -30,21 +42,17 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
       return;
     }
 
-    const { photoURL, email, uid } = user.currentUser;
+    const participantFound = findParticipant();
 
-    let participantFound = false;
-    for (let i = 0; !participantFound && i < participants.length; ++i) {
-      if (participants[i].email === email) {
-        participantFound = true;
-      }
-    }
-
-    if (!participantFound) {
+    if (participantFound == -1) {
       await collectionParticipants.add({
         photoURL,
         email,
-        uid
+        uid,
+        activeMessages: 1
       });
+    } else {
+      await collectionParticipants.doc(participants[participantFound].uniqueId).update({ activeMessages: participants[participantFound].activeMessages + 1 });
     }
 
     await collectionMessages.add({
@@ -77,12 +85,21 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
             user.signOut();
           }}
         />
-        <img className="modify" src="../../assets/settings.png" onClick={() => setModify(!modify)} />
+        <img className="modify" src="../../assets/settings.png" onClick={() => {
+          const participantFound = findParticipant();
+
+          if (participantFound == -1) {
+            setShowClientMessage(true);
+            setClientMessage("MUST HAVE ACTIVE MESSAGE TO DELETE")
+          } else {
+            setModify(!modify);
+          }
+        }} />
         <img src="../../assets/arrow.png" onClick={() => setShowParticipants(!showParticipants)} />
       </div>
       <div className="message-list">
         {messages &&
-          messages.map((msg) => <Message message={msg} user={user} modify={modify} collectionMessages={collectionMessages} />)}
+          messages.map((msg) => <Message participants={participants} collectionParticipants={collectionParticipants} message={msg} user={user} modify={modify} collectionMessages={collectionMessages} />)}
 
         <span ref={last}></span>
       </div>

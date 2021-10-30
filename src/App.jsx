@@ -36,21 +36,10 @@ function App() {
     return (
       <div>
         <Password firestore={firestore} room={room} showPassword={showPassword} firestore={firestore} setShowPassword={setShowPassword} />
-        <Chat user={user ? auth : BotObj} setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
-        <Participants firestore={firestore} room={room} user={user ? auth : BotObj} showParticipants={showParticipants} />
+        <Chat user={user ? auth : bot} setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
+        <Participants firestore={firestore} room={room} user={user ? auth : bot} showParticipants={showParticipants} />
       </div>
     );
-  }
-
-  const BotObj = {
-    currentUser: {
-      email: "[UNAVAILABLE]",
-      photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
-      uid: `${Date().valueOf()} ${Math.random()}`
-    },
-    signOut: function () {
-      setBot(null);
-    }
   }
 
   return (

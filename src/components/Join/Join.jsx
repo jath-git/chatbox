@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import firebase from "firebase/compat/app";
 import "./Join.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -30,7 +30,17 @@ export default function Join({ firestore, auth, room, setRoom, setBot, setClient
         if (googleProvider) {
           auth.signInWithPopup((new firebase.auth.GoogleAuthProvider()));
         } else {
-          setBot({});
+          const BotObj = {
+            currentUser: {
+              email: "[UNAVAILABLE]",
+              photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
+              uid: `${Date().valueOf()} ${Math.random()}`
+            },
+            signOut: function () {
+              setBot(null);
+            }
+          }
+          setBot(BotObj);
         }
       } else {
         setShowClientMessage(true);
