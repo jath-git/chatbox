@@ -1,7 +1,5 @@
 import React from "react";
 import "./Message.scss";
-import { doc, deleteDoc } from "firebase/firestore";
-
 
 export default function Message({ message, auth, collectionMessages, modify }) {
   const { text, email, photoURL, uniqueId } = message;

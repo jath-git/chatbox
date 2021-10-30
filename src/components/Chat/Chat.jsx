@@ -9,16 +9,15 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
     room = "global";
   }
 
-  const userCollectionName = `${room}-participants`;
-
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
   const [modify, setModify] = useState(false);
+
   const collectionMessages = firestore.collection(room);
-  const collectionParticipants = firestore.collection(userCollectionName);
   const [messages] = useCollectionData(collectionMessages.orderBy("timeStamp"), {
     idField: "uniqueId",
   });
+  const collectionParticipants = firestore.collection(`${room}-participants`);
   const [participants] = useCollectionData(collectionParticipants.orderBy("email"), {
     idField: "uniqueId",
   });
@@ -61,7 +60,7 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
   return (
     <div className="chat">
       <div className="text">
-        {/* <img className="setup" src="../../assets/arrow.png" onClick={() => setShowPassword(!showPassword)} /> */}
+        <img className={room === "global" ? "none" : "setup"} src="../../assets/arrow.png" onClick={() => setShowPassword(!showPassword)} />
         {room} chat room
         <img
           src="../assets/close.png"

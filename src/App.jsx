@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 firebase.initializeApp({
@@ -28,11 +29,12 @@ function App() {
   const [room, setRoom] = useState("");
   const [showParticipants, setShowParticipants] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
+  const [password, setPassword] = useState("");
+  
   const showChatRoom = () => {
     return (
       <div>
-        <Password showPassword={showPassword} />
+        <Password firestore={firestore} room={room} showPassword={showPassword} setPassword={setPassword} password={password} room={room} firestore={firestore} />
         <Chat auth={auth} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
         <Participants firestore={firestore} room={room} auth={auth} showParticipants={showParticipants} />
       </div>
@@ -41,7 +43,7 @@ function App() {
 
   return (
     <div className="App">
-      {user ? showChatRoom() : <Join auth={auth} room={room} setRoom={setRoom} />}
+      {user ? showChatRoom() : <Join firestore={firestore} auth={auth} room={room} setRoom={setRoom} />}
     </div>
   );
 }

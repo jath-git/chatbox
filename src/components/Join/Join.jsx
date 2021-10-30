@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import firebase from "firebase/compat/app";
 import "./Join.scss";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default function Join({ auth, room, setRoom }) {
+export default function Join({ firestore, auth, room, setRoom }) {
+  const [passwordValidate, setPasswordValidate] = useState(false);
+  const [password, setPassword] = useState("");
+
+  let tempRoom = room;
+  if (tempRoom === "") {
+    tempRoom = "global";
+  }
+
+  const collectionInformation = firestore.collection(`${tempRoom}-information`);
+  const [information] = useCollectionData(collectionInformation, {
+    idField: "uniqueId",
+  });
+
   const validateUserRoom = () => {
-    setRoom(room.toLowerCase());
-    let hyphenFound = false;
-    for (let i = 0; !hyphenFound && i < room.length; ++i) {
-      if (room[i] === "_" || room[i] === "-") {
-        hyphenFound = true;
+    if (!information || !information.length|| information[0].password === "" || password === information[0].password) {
+      let hyphenFound = false;
+      for (let i = 0; !hyphenFound && i < room.length; ++i) {
+        if (room[i] === "_" || room[i] === "-") {
+          hyphenFound = true;
+        }
       }
-    }
 
-    if (!hyphenFound) {
-      auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      if (!hyphenFound) {
+        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      }
     }
   }
 
@@ -24,7 +39,7 @@ export default function Join({ auth, room, setRoom }) {
         <input
           type="text"
           value={room}
-          onChange={(e) => setRoom(e.target.value)}
+          onChange={(e) => setRoom(e.target.value.toLowerCase())}
           placeholder="Enter Chat Room"
           onKeyDown={e => {
             const enterKey = 13;
@@ -32,13 +47,19 @@ export default function Join({ auth, room, setRoom }) {
               validateUserRoom();
           }}
         />
-          <img
-            src="../assets/google.png"
-            onClick={() => {
+        <input placeholder="Enter Password" value={password} type="password"
+          onChange={(e) => setPassword(e.target.value)} onKeyDown={e => {
+            const enterKey = 13;
+            if (e.keyCode === enterKey)
               validateUserRoom();
-            }}
-          />
-        </div>
+          }} />
+        <img
+          src="../assets/google.png"
+          onClick={() => {
+            validateUserRoom();
+          }}
+        />
+      </div>
     </div>
   );
 }
