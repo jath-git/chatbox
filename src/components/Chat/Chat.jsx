@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
-export default function Chat({ auth, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword }) {
+export default function Chat({ user, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword }) {
   if (room === "") {
     room = "global";
   }
-
+console.log(user.currentUser.photoURL)
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
   const [modify, setModify] = useState(false);
@@ -18,7 +18,7 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
     idField: "uniqueId",
   });
   const collectionParticipants = firestore.collection(`${room}-participants`);
-  const [participants] = useCollectionData(collectionParticipants.orderBy("email"), {
+  const [participants] = useCollectionData(collectionParticipants.orderBy("uid"), {
     idField: "uniqueId",
   });
 
@@ -30,7 +30,7 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
       return;
     }
 
-    const { photoURL, email } = auth.currentUser;
+    const { photoURL, email, uid } = user.currentUser;
 
     let participantFound = false;
     for (let i = 0; !participantFound && i < participants.length; ++i) {
@@ -42,7 +42,8 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
     if (!participantFound) {
       await collectionParticipants.add({
         photoURL,
-        email
+        email,
+        uid
       });
     }
 
@@ -50,7 +51,8 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
       text: messageValue,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       photoURL,
-      email
+      email,
+      uid
     });
 
     setMessageValue("");
@@ -65,7 +67,7 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
         <img
           src="../assets/close.png"
           onClick={() => {
-            auth.signOut();
+            user.signOut();
           }}
         />
         <img className="modify" src="../../assets/settings.png" onClick={() => setModify(!modify)} />
@@ -73,7 +75,7 @@ export default function Chat({ auth, firestore, room, setShowParticipants, showP
       </div>
       <div className="message-list">
         {messages &&
-          messages.map((msg) => <Message message={msg} auth={auth} modify={modify} collectionMessages={collectionMessages} />)}
+          messages.map((msg) => <Message message={msg} user={user} modify={modify} collectionMessages={collectionMessages} />)}
 
         <span ref={last}></span>
       </div>

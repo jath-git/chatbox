@@ -2,7 +2,7 @@ import React from "react";
 import "./Password.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default function Password({ firestore, showPassword, password, setPassword, room }) {
+export default function Password({ firestore, showPassword, room }) {
     if (room === "") {
         room = "global";
     }

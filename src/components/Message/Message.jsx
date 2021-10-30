@@ -1,8 +1,8 @@
 import React from "react";
 import "./Message.scss";
 
-export default function Message({ message, auth, collectionMessages, modify }) {
-  const { text, email, photoURL, uniqueId } = message;
+export default function Message({ message, user, collectionMessages, modify }) {
+  const { text, email, photoURL, uid, uniqueId } = message;
 
   const deleteMessage = async () => {
     await collectionMessages.doc(uniqueId).delete();
@@ -10,7 +10,7 @@ export default function Message({ message, auth, collectionMessages, modify }) {
 
   return (
     <div className="message">
-      <div className={email === auth.currentUser.email ? "outgoing" : "incoming"}>
+      <div className={uid === user.currentUser.uid ? "outgoing" : "incoming"}>
         <img className="photo" src={photoURL} />
         <div>{text}</div>
         <div className={modify ? "modify-container" : "none"}>

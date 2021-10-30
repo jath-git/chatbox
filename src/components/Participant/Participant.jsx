@@ -2,7 +2,7 @@ import React from "react";
 import "./Participant.scss";
 
 export default function Participant(props) {
-  const { email, photoURL } = props.participant;
+  const { email, photoURL, uid } = props.participant;
 
   if (props.special) {
     return (
@@ -14,7 +14,7 @@ export default function Participant(props) {
   }
 
   return (
-    <div className={email === props.currentEmail ? "none" : "participant"} >
+    <div className={uid === props.currentUid ? "none" : "participant"} >
       <img src={photoURL} />
       <div>{email}</div>
     </div>

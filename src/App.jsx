@@ -9,7 +9,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 firebase.initializeApp({
@@ -29,21 +28,32 @@ function App() {
   const [room, setRoom] = useState("");
   const [showParticipants, setShowParticipants] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  
+  const [bot, setBot] = useState(null);
+
   const showChatRoom = () => {
     return (
       <div>
-        <Password firestore={firestore} room={room} showPassword={showPassword} setPassword={setPassword} password={password} room={room} firestore={firestore} />
-        <Chat auth={auth} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
-        <Participants firestore={firestore} room={room} auth={auth} showParticipants={showParticipants} />
+        <Password firestore={firestore} room={room} showPassword={showPassword} room={room} firestore={firestore} />
+        <Chat user={user ? auth : BotObj} firestore={firestore} room={room} setShowParticipants={setShowParticipants} showParticipants={showParticipants} setShowPassword={setShowPassword} showPassword={showPassword} />
+        <Participants firestore={firestore} room={room} user={user ? auth : BotObj} showParticipants={showParticipants} />
       </div>
     );
   }
 
+  const BotObj = {
+    currentUser: {
+      email: "[UNAVAILABLE]",
+      photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
+      uid: `${Date().valueOf()} ${Math.random()}`
+    },
+    signOut: function () {
+      setBot(null);
+    }
+  }
+
   return (
     <div className="App">
-      {user ? showChatRoom() : <Join firestore={firestore} auth={auth} room={room} setRoom={setRoom} />}
+      {user || bot ? showChatRoom() : <Join firestore={firestore} auth={auth} room={room} setRoom={setRoom} setBot={setBot} />}
     </div>
   );
 }

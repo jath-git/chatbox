@@ -10,15 +10,19 @@
     padding: 2%;
   }
 
-  img {
+  .img-container {
     display: block;
+    width: 80%;
     margin: auto;
     margin-top: 7vh;
-    width: 4vw;
-    height: 4vw;
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 2%;
-    background-color: whitesmoke;
+    
+    img {
+      background-color: whitesmoke;
+      border-radius: 50%;
+      padding: 5%;
+      margin: 0 5%;
+      height: 4vw;
+      cursor: pointer;
+    }
   }
 }
