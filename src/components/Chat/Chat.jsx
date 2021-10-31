@@ -82,6 +82,7 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
         <img
           src="../assets/close.png"
           onClick={() => {
+            setShowClientMessage(false);
             user.signOut();
           }}
         />
