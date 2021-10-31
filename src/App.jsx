@@ -29,7 +29,7 @@ function App() {
   const [showParticipants, setShowParticipants] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [bot, setBot] = useState(null);
-  const [clientMessage, setClientMessage] = useState("TO ACCESS NON-SECURED GLOBAL CHAT ROOM, ENTER 'global'");
+  const [clientMessage, setClientMessage] = useState("TO ACCESS UNSECURED GLOBAL CHAT ROOM, ENTER 'global'");
   const [showclientMessage, setShowClientMessage] = useState(true);
 
   const showChatRoom = () => {

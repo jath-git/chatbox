@@ -9,6 +9,10 @@ export default function Chat({ user, firestore, room, setShowParticipants, showP
     room = "global";
   }
 
+  window.onbeforeunload = () => {
+    return setShowClientMessage(true);
+  }
+
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
   const [modify, setModify] = useState(false);

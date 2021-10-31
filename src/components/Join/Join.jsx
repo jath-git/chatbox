@@ -30,17 +30,22 @@ export default function Join({ firestore, auth, room, setRoom, setBot, setClient
         if (googleProvider) {
           auth.signInWithPopup((new firebase.auth.GoogleAuthProvider()));
         } else {
-          const BotObj = {
-            currentUser: {
-              email: "[NO EMAIL FOR BOT]",
-              photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
-              uid: `${Date().valueOf()} ${Math.random()}`
-            },
-            signOut: function () {
-              setBot(null);
+          if (password != "") {
+            setShowClientMessage(true);
+            setClientMessage("DID YOU MEAN TO PROVIDE PASSWORD FOR UNSECURED ROOM?");
+          } else {
+            const BotObj = {
+              currentUser: {
+                email: "[NO EMAIL FOR BOT]",
+                photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
+                uid: `${Date().valueOf()} ${Math.random()}`
+              },
+              signOut: function () {
+                setBot(null);
+              }
             }
+            setBot(BotObj);
           }
-          setBot(BotObj);
         }
       } else {
         setShowClientMessage(true);
