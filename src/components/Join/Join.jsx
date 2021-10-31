@@ -90,6 +90,13 @@ export default function Join({ firestore, auth, room, setRoom, setBot, setClient
               validateUserRoom(false);
             }}
           />
+          <img
+            src="../../assets/question.png"
+            onClick={() => {
+              setShowClientMessage(true);
+              setClientMessage("CLICK ICONS TO SIGN IN BY GOOGLE VERIFICATION OR AS AN ANONYMOUS BOT");
+            }}
+          />
         </div>
       </div>
     </div>
