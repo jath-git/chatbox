@@ -2,6 +2,7 @@
   "name": "chatbox",
   "private": true,
   "dependencies": {
+    "bad-words": "^3.0.4",
     "dotenv": "^10.0.0",
     "firebase": "^9.2.0",
     "firebase-admin": "^10.0.0",
