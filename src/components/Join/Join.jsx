@@ -3,7 +3,7 @@ import firebase from "firebase/compat/app";
 import "./Join.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export default function Join({ firestore, auth, room, setRoom, setBot, setClientMessage, setShowClientMessage }) {
+export default function Join({ firestore, setAccessChat, auth, room, setRoom, setBot, setClientMessage, setShowClientMessage }) {
   const [password, setPassword] = useState("");
 
   let tempRoom = room;
@@ -59,6 +59,8 @@ export default function Join({ firestore, auth, room, setRoom, setBot, setClient
         setClientMessage("ENTERED PASSWORD IS INCORRECT");
       }
     }
+
+    setAccessChat(true);
   }
 
   return (

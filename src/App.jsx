@@ -31,6 +31,7 @@ function App() {
   const [bot, setBot] = useState(null);
   const [clientMessage, setClientMessage] = useState("TO ACCESS UNSECURED GLOBAL CHAT ROOM, ENTER 'global'");
   const [showclientMessage, setShowClientMessage] = useState(true);
+  const [accessChat, setAccessChat] = useState(false);
 
   const showChatRoom = () => {
     return (
@@ -45,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <div className={showclientMessage ? "client-message" : "none"}><img src="../../assets/notification.png" />{clientMessage}<img className="close-message" src="../../assets/close.png" onClick={() => setShowClientMessage(false)} /></div>
-      {user || bot ? showChatRoom() : <Join setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} auth={auth} room={room} setRoom={setRoom} setBot={setBot} />}
+      {accessChat && (user || bot) ? showChatRoom() : <Join setAccessChat={setAccessChat} setClientMessage={setClientMessage} setShowClientMessage={setShowClientMessage} firestore={firestore} auth={auth} room={room} setRoom={setRoom} setBot={setBot} />}
     </div>
   );
 }
