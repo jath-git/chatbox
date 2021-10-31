@@ -30,7 +30,7 @@ export default function Join({ firestore, setAccessChat, auth, room, setRoom, se
         if (googleProvider) {
           auth.signInWithPopup((new firebase.auth.GoogleAuthProvider()));
         } else {
-          if (password != "") {
+          if (password != "" && password !== information[0].password) {
             setShowClientMessage(true);
             setClientMessage("DID YOU MEAN TO PROVIDE PASSWORD FOR UNSECURED ROOM?");
           } else {
