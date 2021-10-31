@@ -32,7 +32,7 @@ export default function Join({ firestore, auth, room, setRoom, setBot, setClient
         } else {
           const BotObj = {
             currentUser: {
-              email: "[UNAVAILABLE]",
+              email: "[NO EMAIL FOR BOT]",
               photoURL: `../../assets/bot${Math.floor(Math.random() * 8)}.png`,
               uid: `${Date().valueOf()} ${Math.random()}`
             },

@@ -5,7 +5,6 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Password({ firestore, showPassword, setShowPassword, room }) {
     if (room === "" || room === "global") {
         room = "global";
-        // setShowPassword(false);
     }
 
     const collectionInformation = firestore.collection(`${room}-information`);
