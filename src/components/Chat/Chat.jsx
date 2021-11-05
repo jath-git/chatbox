@@ -4,14 +4,17 @@ import React, { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "./Chat.scss";
 
+
 export default function Chat({ user, firestore, room, setShowParticipants, showParticipants, setShowPassword, showPassword, setClientMessage, setShowClientMessage }) {
   if (room === "") {
     room = "global";
   }
 
-  window.onbeforeunload = () => {
-    return setShowClientMessage(true);
-  }
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      user.signOut();
+    }
+  });
 
   const last = useRef();
   const [messageValue, setMessageValue] = useState("");
