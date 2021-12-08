@@ -1,0 +1,35 @@
+@import "./global.scss";
+
+.redirect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $color4;
+    width: 100vw;
+    height: 100vh;
+
+    .message {
+        background-color: $color1;
+        color: whitesmoke;
+        border-bottom: whitesmoke solid 5px;
+        width: 80%;
+        padding: 5%;
+        text-align: center;
+        text-transform: uppercase;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: 2.5rem;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: $color2;
+            color: $color4;
+            border-bottom: $color1 solid 5px;
+        }
+    }
+}

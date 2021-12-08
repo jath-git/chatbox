@@ -20,17 +20,6 @@ firebase.initializeApp({
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 });
 
-
-// firebase.initializeApp({
-//   apiKey: process.env.REACT_APP_API_KEY,
-//   authDomain: "chatbox-authentication.firebaseapp.com",
-//   projectId: "chatbox-authentication",
-//   storageBucket: "chatbox-authentication.appspot.com",
-//   messagingSenderId: "408104309600",
-//   appId: "1:408104309600:web:3d7a0fc25d88b71d698405",
-//   measurementId: "G-Q5FPW0B4MZ",
-// });
-
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
