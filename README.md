@@ -7,9 +7,9 @@
 [linkedin-url]: https://linkedin.com/in/jathurshan-t
 
 <!-- project summary shields -->
-[contributors-shield]: https://img.shields.io/github/contributors/jath-git/portfolio.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/jath-git/chatbox.svg?style=for-the-badge
 [contributors-url]: https://github.com/jath-git/portfolio/graphs/contributors
-[stars-shield]: https://img.shields.io/github/stars/jath-git/portfolio.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/jath-git/chatbox.svg?style=for-the-badge
 [stars-url]: https://github.com/jath-git/portfolio/stargazers
 
 <!-- programming language shields -->
