@@ -8,9 +8,9 @@
 
 <!-- project summary shields -->
 [contributors-shield]: https://img.shields.io/github/contributors/jath-git/chatbox.svg?style=for-the-badge
-[contributors-url]: https://github.com/jath-git/portfolio/graphs/contributors
+[contributors-url]: https://github.com/jath-git/chatbox/graphs/contributors
 [stars-shield]: https://img.shields.io/github/stars/jath-git/chatbox.svg?style=for-the-badge
-[stars-url]: https://github.com/jath-git/portfolio/stargazers
+[stars-url]: https://github.com/jath-git/chatbox/stargazers
 
 <!-- programming language shields -->
 [python-shield]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
